@@ -31,7 +31,7 @@
             "label": "",
             "ui_data": {
               "label": "preprocessing.py",
-              "image": "/notebook/ml-development/jupyterlab/static/elyra/python.svg",
+              "image": "/notebook/object-detection/industrial-edge/static/elyra/python.svg",
               "x_pos": 61,
               "y_pos": 287,
               "description": "Run Python script"
@@ -96,7 +96,7 @@
             "label": "",
             "ui_data": {
               "label": "feature_extraction.py",
-              "image": "/notebook/ml-development/jupyterlab/static/elyra/python.svg",
+              "image": "/notebook/object-detection/industrial-edge/static/elyra/python.svg",
               "x_pos": 298,
               "y_pos": 286,
               "description": "Run Python script"
@@ -160,7 +160,7 @@
             "label": "",
             "ui_data": {
               "label": "training.py",
-              "image": "/notebook/ml-development/jupyterlab/static/elyra/python.svg",
+              "image": "/notebook/object-detection/industrial-edge/static/elyra/python.svg",
               "x_pos": 539,
               "y_pos": 287,
               "description": "Run Python script"
@@ -222,7 +222,7 @@
             "label": "",
             "ui_data": {
               "label": "verification.py",
-              "image": "/notebook/ml-development/jupyterlab/static/elyra/python.svg",
+              "image": "/notebook/object-detection/industrial-edge/static/elyra/python.svg",
               "x_pos": 471,
               "y_pos": 461,
               "description": "Run Python script"
@@ -307,7 +307,7 @@
             "label": "",
             "ui_data": {
               "label": "push-model.py",
-              "image": "/notebook/ml-development/jupyterlab/static/elyra/python.svg",
+              "image": "/notebook/object-detection/industrial-edge/static/elyra/python.svg",
               "x_pos": 879,
               "y_pos": 493,
               "description": "Run Python script"
@@ -393,7 +393,7 @@
             "label": "",
             "ui_data": {
               "label": "data_ingestion.py",
-              "image": "/notebook/ml-development/jupyterlab/static/elyra/python.svg",
+              "image": "/notebook/object-detection/industrial-edge/static/elyra/python.svg",
               "x_pos": 156,
               "y_pos": 176,
               "description": "Run Python script"
@@ -444,9 +444,9 @@
             "kubernetes_pod_labels": [],
             "env_vars": [],
             "kubernetes_secrets": [],
-            "runtime_image": "quay.io/mmurakam/runtimes:timeseries-v0.1.0"
+            "runtime_image": "quay.io/mmurakam/runtimes:industrial-edge-v0.1.0"
           },
-          "name": "python-pipeline",
+          "name": "training",
           "runtime": "Data Science Pipelines"
         }
       },
