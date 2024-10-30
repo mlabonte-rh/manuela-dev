@@ -1,28 +1,32 @@
-def get_deployment_resource(s3_bucket_name):
+def get_deployment_resource(model_artifact_id):
     deployment_resource = {
-        'apiVersion': 'machinelearning.seldon.io/v1',
-        'kind': 'SeldonDeployment',
+        'apiVersion': 'serving.kserve.io/v1beta1',
+        'kind': 'InferenceService',
         'metadata': {
             'name': 'inference-service',
+            'labels': {
+                'opendatahub.io/dashboard': 'true'
+            },
+            'annotations': {
+                'serving.kserve.io/deploymentMode': 'ModelMesh'
+            },
         },
         'spec': {
-            'name': 'inference-service',
-            'predictors': [{
-                'name': 'predictor',
-                'replicas': 1,
-                'graph': {
-                    'name': 'inference-service',
-                    'implementation': 'SKLEARN_SERVER',
-                    'storageInitializerImage': 'seldonio/rclone-storage-initializer:1.12.0',
-                    'envSecretRefName': 'seldon-rclone-secret',
-                    'parameters': [{
-                        'name': 'method',
-                        'type': 'STRING',
-                        'value': 'predict',
-                    }],
-                    'modelUri': f's3://{s3_bucket_name}'
+            'predictor': {
+                'model': {
+                    'modelFormat': {
+                        'name': 'sklearn',
+                        'version': '0',
+                    },
+                    'runtime': 'ml-server',
+                    'storage': {
+                        'key': 'aws-connection-user',
+                        'path': model_artifact_id,
+                    }
                 }
-            }]
+            }
         }
     }
     return deployment_resource
+
+

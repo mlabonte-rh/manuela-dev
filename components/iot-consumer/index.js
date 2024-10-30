@@ -25,7 +25,10 @@ const temperature_threshold = process.env.TEMPERATURE_THRESHOLD || 70.0;
 const temperature_alert_enabled = ((process.env.TEMPERATURE_ALERT_ENABLED || "false") === 'true');
 const vibration_alert_enabled = ((process.env.VIBRATION_ALERT_ENABLED || "false") === 'true');
 const vibration_anomaly_enabled = ((process.env.VIBRATION_ANOMALY_ENABLED || "false") === 'true');
+
+const anomaly_detection_model = process.env.ANOMALY_DETECTION_MODEL || 'anomaly-detection'
 const anomaly_detection_url = process.env.ANOMALY_DETECTION_URL || 'http://anomaly-detection-anomaly-detection';
+const anomaly_detection_url_path = process.env.ANOMALY_DETECTION_URL_PATH || `/v2/models/${anomaly_detection_model}/infer`;
 
 // setup application
 var mqtt = require('mqtt')
@@ -108,7 +111,7 @@ function get_list_last_values(id, value) {
   if ( last_value_array_map[id] !== undefined) {
     array = last_value_array_map[id]
   }
-  array.unshift(value); 
+  array.unshift(value);
 
   if (array.length > episode_length) {
     array.pop()
@@ -119,7 +122,7 @@ function get_list_last_values(id, value) {
 
 
 
-var last_value_map = {}; 
+var last_value_map = {};
 async function check_anomaly(id, value) {
     var result = false
 
@@ -128,25 +131,33 @@ async function check_anomaly(id, value) {
         console.log('Anomaly detection for: %s, Val: %d', id, value );
 
         l = get_list_last_values(id, value)
-        
+
         if (l.length == episode_length) {
 
-            var edgeAnomaly = { "data": { "ndarray": [l] }};
-                
+            var edgeAnomaly = {
+                "inputs": [
+                    {
+                        "data": l,
+                        "datatype": "FP32",
+                        "shape": [1, 5]
+                    }
+                ]
+            }
+
             try {
                 console.log('*AD* ID: %s,  Val: %d', id, value );
                 const edgeAnomalyResponse = await request({
                 method: 'POST',
-                uri: anomaly_detection_url + '/api/v1.0/predictions',
+                uri: anomaly_detection_url + anomaly_detection_url_path,
                 body: edgeAnomaly,
                 json: true,
                 timeout: 1000
                 });
-        
+
                 // log.debug("Edge Anomaly Repsonse: " + JSON.stringify(edgeAnomalyResponse)); //DELETE
                 // log.debug("Edge Anomaly Repsonse.data: " + JSON.stringify(edgeAnomalyResponse.data)); //DELETE
-        
-                if ( parseInt(edgeAnomalyResponse["data"]["ndarray"][0]) == 1 ){
+
+                if ( parseInt(edgeAnomalyResponse["outputs"][0]["data"][0]) == 1 ){
                 result = true;
                 } else {
                 result = false;
@@ -195,7 +206,7 @@ function handleTemperature(message) {
     var newData = data.replace(elements[2], modifiedValue);
     message = Buffer.from(newData, 'utf8');
    */
-  
+
     io.sockets.emit("temperature-event", message);
 
     // check for temperature threshold
