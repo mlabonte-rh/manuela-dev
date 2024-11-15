@@ -18,9 +18,9 @@ def get_deployment_resource(model_artifact_id):
                         'name': 'sklearn',
                         'version': '0',
                     },
-                    'runtime': 'ml-server',
+                    'runtime': 'anomaly-detection-model-server',
                     'storage': {
-                        'key': 'aws-connection-user',
+                        'key': 'aws-connection-user-bucket',
                         'path': model_artifact_id,
                     }
                 }
