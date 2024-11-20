@@ -444,7 +444,7 @@
             "kubernetes_pod_labels": [],
             "env_vars": [],
             "kubernetes_secrets": [],
-            "runtime_image": "quay.io/mmurakam/runtimes:industrial-edge-v0.1.0"
+            "runtime_image": "quay.io/hybridcloudpatterns/manuela-runtime:integrate_rhoai"
           },
           "name": "training",
           "runtime": "Data Science Pipelines"
