@@ -31,7 +31,7 @@
             "label": "",
             "ui_data": {
               "label": "preprocessing.py",
-              "image": "/notebook/object-detection/industrial-edge/static/elyra/python.svg",
+              "image": "/notebook/ml-development/jupyterlab/static/elyra/python.svg",
               "x_pos": 61,
               "y_pos": 287,
               "description": "Run Python script"
@@ -96,7 +96,7 @@
             "label": "",
             "ui_data": {
               "label": "feature_extraction.py",
-              "image": "/notebook/object-detection/industrial-edge/static/elyra/python.svg",
+              "image": "/notebook/ml-development/jupyterlab/static/elyra/python.svg",
               "x_pos": 298,
               "y_pos": 286,
               "description": "Run Python script"
@@ -160,7 +160,7 @@
             "label": "",
             "ui_data": {
               "label": "training.py",
-              "image": "/notebook/object-detection/industrial-edge/static/elyra/python.svg",
+              "image": "/notebook/ml-development/jupyterlab/static/elyra/python.svg",
               "x_pos": 539,
               "y_pos": 287,
               "description": "Run Python script"
@@ -222,7 +222,7 @@
             "label": "",
             "ui_data": {
               "label": "verification.py",
-              "image": "/notebook/object-detection/industrial-edge/static/elyra/python.svg",
+              "image": "/notebook/ml-development/jupyterlab/static/elyra/python.svg",
               "x_pos": 471,
               "y_pos": 461,
               "description": "Run Python script"
@@ -270,7 +270,9 @@
           "op": "execute-python-node",
           "app_data": {
             "component_parameters": {
-              "dependencies": [],
+              "dependencies": [
+                "deployment.py"
+              ],
               "include_subdirectories": false,
               "outputs": [],
               "env_vars": [],
@@ -296,6 +298,21 @@
                   "env_var": "S3_BUCKET_NAME",
                   "name": "aws-connection-user-bucket",
                   "key": "AWS_S3_BUCKET"
+                },
+                {
+                  "env_var": "username",
+                  "name": "gitea-admin-secret-and-branch",
+                  "key": "username"
+                },
+                {
+                  "env_var": "password",
+                  "name": "gitea-admin-secret-and-branch",
+                  "key": "password"
+                },
+                {
+                  "env_var": "branch",
+                  "name": "gitea-admin-secret-and-branch",
+                  "key": "branch"
                 }
               ],
               "kubernetes_shared_mem_size": {},
@@ -306,7 +323,7 @@
             "label": "",
             "ui_data": {
               "label": "push-model.py",
-              "image": "/notebook/object-detection/industrial-edge/static/elyra/python.svg",
+              "image": "/notebook/ml-development/jupyterlab/static/elyra/python.svg",
               "x_pos": 879,
               "y_pos": 493,
               "description": "Run Python script"
@@ -392,7 +409,7 @@
             "label": "",
             "ui_data": {
               "label": "data_ingestion.py",
-              "image": "/notebook/object-detection/industrial-edge/static/elyra/python.svg",
+              "image": "/notebook/ml-development/jupyterlab/static/elyra/python.svg",
               "x_pos": 156,
               "y_pos": 176,
               "description": "Run Python script"
