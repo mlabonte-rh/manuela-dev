@@ -7,8 +7,6 @@ df['time'] = pd.to_datetime(df['ts'],unit='ms')
 df.set_index('time', inplace=True)
 df.drop(columns=['ts'], inplace=True)
 
-df.head(20)
-
 df1 = df.loc[df['id'] == 'pump-1']
 df1 = df1.drop(columns=['id', 'label'])
 
@@ -17,8 +15,6 @@ df1 = df1.drop(columns=['id', 'label'])
 
 df1 = df.loc[df['id'] == 'pump-1']
 df1 = df1.drop(columns=['id'])
-
-df1.head(10)
 
 df1 = df.loc[df['id'] == 'pump-1']
 df1 = df1.drop(columns=['id'])
@@ -31,6 +27,8 @@ df2 = df2.drop(columns=['id'])
 #
 
 # Get list with column names: F1, F2, Fn, L
+
+
 def get_columns(n):
     f = []
     for x in range(1, n+1):
@@ -55,6 +53,7 @@ def create_df(vals: list, label: int = 0):
     dfx = pd.DataFrame([vals+[label]], columns=get_columns(len(vals)))
     return dfx
 
+
 length = 5  # Episode length
 
 df_epis = create_empty_df(length)
@@ -70,12 +69,8 @@ for id in df.id.unique():
         epi.append(row['value'])
         if len(epi) == length:
             df_row = create_df(epi, row['label'])
-            df_epis = df_epis.append(df_row, ignore_index=True)
+            df_epis = pd.concat([df_epis, df_row], ignore_index=True)
             del(epi[0])
-
-df_epis.head(20)
-
-df_epis.describe()
 
 # Calculate number of episodes
 n_episodes = df_epis.shape[0]
@@ -107,7 +102,7 @@ for i in range(1, factor):
 
     dfi = df_epis.copy()
     dfi['F5'] = np.where(dfi['L'] == 1, dfi['F5']*f, dfi['F5'])
-    dfr = dfr.append(dfi)
+    dfr = pd.concat([dfr, dfi])
 
 df_epis = dfr.copy()
 
