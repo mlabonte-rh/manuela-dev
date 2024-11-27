@@ -301,8 +301,7 @@
               "kubernetes_shared_mem_size": {},
               "kubernetes_tolerations": [],
               "mounted_volumes": [],
-              "filename": "push-model.py",
-              "runtime_image": "quay.io/mmurakam/runtimes:timeseries-v0.1.0"
+              "filename": "push-model.py"
             },
             "label": "",
             "ui_data": {
@@ -444,7 +443,7 @@
             "kubernetes_pod_labels": [],
             "env_vars": [],
             "kubernetes_secrets": [],
-            "runtime_image": "quay.io/hybridcloudpatterns/manuela-runtime:integrate_rhoai"
+            "runtime_image": "quay.io/hybridcloudpatterns/manuela-runtime:main"
           },
           "name": "training",
           "runtime": "Data Science Pipelines"
