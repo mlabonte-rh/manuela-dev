@@ -4,6 +4,8 @@ name: Docker build and push to quay
 permissions: read-all
 
 on:
+  paths:
+    - container-source/**
   push:
     branches: ['main', 'integrate_rhoai']
     # Publish semver tags as releases.
