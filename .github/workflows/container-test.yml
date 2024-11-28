@@ -1,6 +1,11 @@
 ---
 name: "Container build and test"
-on: [push, pull_request, workflow_call]
+on:
+  push:
+  pull_request:
+  workflow_call:
+  paths:
+    - container-source/**
 permissions: read-all
 
 jobs:
